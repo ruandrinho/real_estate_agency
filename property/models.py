@@ -6,7 +6,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Flat(models.Model):
-    new_building = models.BooleanField(null=True, blank=True)
+    new_building = models.BooleanField(null=True, blank=True, db_index=True)
     created_at = models.DateTimeField(
         'Когда создано объявление',
         default=timezone.now,
@@ -23,10 +23,12 @@ class Flat(models.Model):
         'Район города, где находится квартира',
         max_length=50,
         blank=True,
-        help_text='Чертаново Южное')
+        help_text='Чертаново Южное',
+        db_index=True)
     address = models.TextField(
         'Адрес квартиры',
-        help_text='ул. Подольских курсантов д.5 кв.4')
+        help_text='ул. Подольских курсантов д.5 кв.4',
+        db_index=True)
     floor = models.CharField(
         'Этаж',
         max_length=3,
@@ -49,7 +51,11 @@ class Flat(models.Model):
         blank=True,
         db_index=True)
 
-    like = models.ManyToManyField(User, verbose_name='Кто лайкнул', blank=True)
+    like = models.ManyToManyField(
+        User,
+        verbose_name='Кто лайкнул',
+        blank=True,
+        db_index=True)
 
     def __str__(self):
         return f'{self.town}, {self.address} ({self.price}р.)'
