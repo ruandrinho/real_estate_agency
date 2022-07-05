@@ -6,7 +6,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Flat(models.Model):
-    new_building = models.BooleanField(null=True, blank=True, db_index=True)
+    new_building = models.BooleanField(null=True, blank=True)
     created_at = models.DateTimeField(
         'Когда создано объявление',
         default=timezone.now,
@@ -22,12 +22,10 @@ class Flat(models.Model):
     town_district = models.CharField(
         'Район города, где находится квартира',
         max_length=50,
-        db_index=True,
         blank=True,
         help_text='Чертаново Южное')
     address = models.TextField(
         'Адрес квартиры',
-        db_index=True,
         help_text='ул. Подольских курсантов д.5 кв.4')
     floor = models.CharField(
         'Этаж',
